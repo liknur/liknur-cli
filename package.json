@@ -1,6 +1,6 @@
 {
   "name": "liknur-cli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Command line tool for building the liknur project",
   "homepage": "https://github.com/liknur/liknur-cli#readme",
   "bugs": {
@@ -14,6 +14,15 @@
   "author": "Jarosław Karczmarczyk",
   "type": "module",
   "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json",
+    "package-lock.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "liknur-cli": "./dist/index.js"
   },
@@ -28,6 +37,7 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
+    "liknur-webpack": "^1.0.0",
     "webpack": "^5.98.0"
   }
 }
