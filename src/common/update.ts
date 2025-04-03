@@ -41,19 +41,22 @@ async function updateTSConfig(tsConfigPath : PathLike, config: LiknurConfig): Pr
   const tsConfig = await readFile(tsConfigPath, 'utf-8');
   const tsConfigJson = JSON.parse(tsConfig);
   const aliases = getAliases(null, config);
+  const aliasesToWrite : Record<string, string[]> = {};
   for (const alias of Object.keys(aliases)) {
     // check whether alias value is folder
     const aliasValue = aliases[alias];
     if ( await isDirectory(aliasValue) ) {
-      delete aliases[alias];
       const newAliasKey = alias + path.sep + '*';
-      aliases[newAliasKey] = aliasValue.toString() + path.sep + '*';
+      aliasesToWrite[newAliasKey] = [aliasValue.toString() + path.sep + '*'];
+    }
+    else {
+      aliasesToWrite[alias] = [aliasValue.toString()];
     }
   }
 
   tsConfigJson.compilerOptions = tsConfigJson.compilerOptions || {};
   tsConfigJson.compilerOptions.paths = tsConfigJson.compilerOptions.paths || {};
-  tsConfigJson.compilerOptions.paths = aliases;
+  tsConfigJson.compilerOptions.paths = aliasesToWrite;
 
   await writeFile(tsConfigPath, JSON.stringify(tsConfigJson, null, 2));
 }

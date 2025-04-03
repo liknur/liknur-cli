@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "outDir": "dist",
     "rootDir": "src",
+    "typeRoots": ["./node_modules/@types", "./types"],
     "lib": [
       "ESNext"
     ],
@@ -18,6 +19,6 @@
     ],
     "baseUrl": "./"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "types/**/*"],
   "exclude": ["dist/**/*.js", "**/*.test.ts", "**/*.spec.ts", "tests", "__tests__"]
 }

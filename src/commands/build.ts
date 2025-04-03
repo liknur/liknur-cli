@@ -4,23 +4,32 @@ import type { BuildType } from "liknur-webpack";
 import { liknurWebpack } from 'liknur-webpack';
 import { updateDependentConfigFiles } from "./../common/update.js";
 import { loadProject } from "./../common/load-config.js";
+import  formatMessages from "webpack-format-messages";
 
 function runBuild(configs: webpack.Configuration[]) {
   const compiler = webpack(configs);
 
-  compiler.run((err, stats) => {
-    if (err) {
+  compiler.run((err, multiStats) => {
+    if (err || multiStats == null) {
       console.error("❌ Build failed:", err);
       process.exit(1);
     }
 
-    if (stats?.hasErrors()) {
-      console.error("❌ Build errors:", stats.toJson().errors);
-      process.exit(1);
-    }
+    for (const stats of multiStats.stats) {
+      if (stats.hasErrors()) {
+        const messages = formatMessages(stats);
 
-    console.log("✅ Build completed successfully.");
-    console.log(stats?.toString({ colors: true }));
+        if (messages.errors.length) {
+          console.error('❌ Build failed with errors:\n');
+          messages.errors.forEach(msg => console.error(msg));
+        } else if (messages.warnings.length) {
+          console.warn('⚠️ Build finished with warnings:\n');
+          messages.warnings.forEach(msg => console.warn(msg));
+        } else {
+          console.log('✅ Build successful!');
+        }
+      }
+    }
     compiler.close(() => {});
   });
 }
