@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "lib": [
+      "ESNext"
+    ],
+    "types": [
+      "node",
+    ],
+    "baseUrl": "./"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist/**/*.js", "**/*.test.ts", "**/*.spec.ts", "tests", "__tests__"]
+}
