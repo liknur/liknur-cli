@@ -1,6 +1,6 @@
 {
   "name": "liknur-cli",
-  "version": "1.0.2",
+  "version": "1.0.8",
   "description": "Command line tool for building the liknur project",
   "homepage": "https://github.com/liknur/liknur-cli#readme",
   "bugs": {
@@ -30,14 +30,14 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@types/node": "^22.13.15",
+    "@types/node": "^22.14.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
-    "liknur-webpack": "^1.0.0",
+    "liknur-webpack": "^1.0.7",
     "webpack": "^5.98.0"
   }
 }

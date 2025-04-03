@@ -46,7 +46,8 @@ async function updateTSConfig(tsConfigPath : PathLike, config: LiknurConfig): Pr
     const aliasValue = aliases[alias];
     if ( await isDirectory(aliasValue) ) {
       delete aliases[alias];
-      aliases[path.join(alias, '*')] = path.join(aliasValue.toString(), '*');
+      const newAliasKey = alias + path.sep + '*';
+      aliases[newAliasKey] = aliasValue.toString() + path.sep + '*';
     }
   }
 
