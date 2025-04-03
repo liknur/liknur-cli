@@ -1,6 +1,6 @@
 {
   "name": "liknur-cli",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Command line tool for building the liknur project",
   "homepage": "https://github.com/liknur/liknur-cli#readme",
   "bugs": {
@@ -37,7 +37,7 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
-    "liknur-webpack": "^1.0.7",
+    "liknur-webpack": "^1.0.8",
     "webpack": "^5.98.0",
     "webpack-format-messages": "^3.0.1"
   }
