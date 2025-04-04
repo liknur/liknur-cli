@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import build from "./commands/build.js";
 import update from "./commands/update.js";
+import runTest from "./commands/test.js";
 
 const program = new Command();
 
@@ -53,6 +54,18 @@ program
     console.log(`📄 Using configuration from: ${options.config}`);
 
     await update(options.config);
+  });
+
+program
+  .command("test")
+  .description("Run tests for a specific type")
+  .argument("<testType>", "Type of tests to run (unit, integration)")
+  .option("--config <path>", "Path to configuration file", "project.config.yaml")
+  .action(async (testType, options) => {
+    console.log(`🛠️  Running ${testType} tests`);
+    console.log(`📄 Using configuration from: ${options.config}`);
+
+    await runTest(testType, options.config);
   });
 
 
