@@ -1,6 +1,6 @@
 {
   "name": "liknur-cli",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Command line tool for building the liknur project",
   "homepage": "https://github.com/liknur/liknur-cli#readme",
   "bugs": {
