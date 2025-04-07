@@ -7,7 +7,7 @@ import { loadProject } from "./../common/load-config.js";
 import  formatMessages from "webpack-format-messages";
 import chalk from "chalk";
 
-function runBuild(configs: webpack.Configuration[]) {
+export function runBuild(configs: webpack.Configuration[]) {
   const compiler = webpack(configs);
 
   compiler.run((err, multiStats) => {
@@ -48,7 +48,7 @@ function runBuild(configs: webpack.Configuration[]) {
 export default async function build(buildMode: BuildType, services: string[], configPath: PathLike): Promise<void> {
   const config = await loadProject(configPath);
 
-  const buildResult = liknurWebpack(config, buildMode, services);
+  const buildResult = await liknurWebpack(config, buildMode, services);
   if (Array.isArray(buildResult) && buildResult.length === 0) {
     process.exit(1);
   }
