@@ -20,17 +20,17 @@ export function runBuild(configs: webpack.Configuration[]) {
       if (stats.hasErrors()) {
         const info = stats.toJson({ all: false, errors: true, warnings: true });
         const messages = formatMessages(stats);
-        console.log(info.errors);
 
         if (messages.errors.length && info.errors && info.errors.length === messages.errors.length) {
           console.error('❌ Build failed with errors:\n');
           messages.errors.forEach((msg, index) => {
-            console.error(`Error index ${index}:`);
-            if (!info.errors || info.errors[index] == null || info.errors[index].file == null) {
+            if (!info.errors || info.errors[index] == null ) {
               console.error('No error message available');
               return;
             }
-            console.error(chalk.bgRed('Error in file ' + info.errors[index].file));
+            if (info.errors[index].file != null) {
+              console.error(chalk.bgRed('Error in file ' + info.errors[index].file));
+            }
             console.error(msg);
           });
         } else if (messages.warnings.length) {
