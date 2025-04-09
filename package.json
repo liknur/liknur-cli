@@ -1,6 +1,6 @@
 {
   "name": "liknur-cli",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Command line tool for building the liknur project",
   "homepage": "https://github.com/liknur/liknur-cli#readme",
   "bugs": {
@@ -33,7 +33,7 @@
     "@types/chokidar": "^2.1.7",
     "@types/node": "^22.14.0",
     "@types/nodemon": "^3.1.1",
-    "liknur-webpack": "^1.0.10",
+    "liknur-webpack": "^1.0.13",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
@@ -44,7 +44,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.9",
     "ts-jest": "^29.3.1",
-    "webpack": "^5.99.0",
+    "webpack": "^5.99.5",
     "webpack-format-messages": "^3.0.1"
   }
 }

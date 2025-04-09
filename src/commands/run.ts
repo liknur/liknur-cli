@@ -25,7 +25,7 @@ async function startWatchMode(buildMode: BuildType, config: LiknurConfig, servic
     script: `dist/${buildMode}/server/main.cjs`,
     ext: 'js ts',
     watch: ['src/backend/**/*.ts', 'src/backend/**/*.js'],
-    ignore: ['src/**/*.test.ts'],
+    ignore: ['src/**/*.test.ts', 'node_modules/**', 'dist/**'],
     verbose: true,
     cwd: process.cwd()
   })
