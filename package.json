@@ -1,6 +1,6 @@
 {
   "name": "liknur-cli",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Command line tool for building the liknur project",
   "homepage": "https://github.com/liknur/liknur-cli#readme",
   "bugs": {
@@ -13,7 +13,7 @@
   "license": "ISC",
   "author": "Jarosław Karczmarczyk",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/liknur-cli.js",
   "files": [
     "dist",
     "README.md",
@@ -24,13 +24,16 @@
     "access": "public"
   },
   "bin": {
-    "liknur-cli": "./dist/index.js"
+    "liknur-cli": "./dist/liknur-cli.js",
+    "liknur-docker-cli": "./dist/liknur-docker-cli.js"
   },
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
     "@types/chokidar": "^2.1.7",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.17.16",
     "@types/node": "^22.14.0",
     "@types/nodemon": "^3.1.1",
     "liknur-webpack": "^1.0.13",
@@ -42,6 +45,8 @@
     "commander": "^13.1.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "nodemon": "^3.1.9",
     "ts-jest": "^29.3.1",
     "webpack": "^5.99.5",
