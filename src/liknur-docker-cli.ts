@@ -107,6 +107,12 @@ if (configSections.size > 0) {
   console.log(`Copying whole file ${serviceConfigFile} to ${dstServiceConfigFile}`);
   await fs.copyFile(serviceConfigFile, dstServiceConfigFile);
 }
+// list the files in the current directory
+console.log('Files in the current directory:');
+const files = await fs.readdir(process.cwd());
+files.forEach(file => {
+  console.log(file);
+});
 
 // Install dependencies
 runNpmInstall(); 
