@@ -12,8 +12,8 @@ export function runNpmInstall() {
   });
 }
 
-export function runNpmBuild() {
-  const buildProcess = spawn('npm', ['run', 'build'], { stdio: 'inherit', shell: true });
+export function runNpmBuild(buildType: string, configPath: string) {
+  const buildProcess = spawn('npx', ['liknur-cli', 'build', buildType, `--config "${configPath}"`], { stdio: 'inherit', shell: true });
 
   buildProcess.on('close', (code) => {
     if (code === 0) {
