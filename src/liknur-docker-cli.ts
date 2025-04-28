@@ -110,6 +110,6 @@ if (configSections.size > 0) {
 
 // Install dependencies
 runNpmInstall(); 
-runNpmBuild(buildMode);
+runNpmBuild(buildMode, options.liknurConfig);
 
 await clearDirectoryExcept('.', ['dist', 'node_modules', 'package.json', 'package-lock.json']);
