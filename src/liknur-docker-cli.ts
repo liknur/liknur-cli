@@ -10,6 +10,7 @@ import { PathLike } from 'fs';
 import { setupCertificates } from './common/certificates.js';
 import { copyYamlSections } from './common/copy-config.js';
 import { runNpmInstall } from './common/build-npm.js';
+import { parseConfiguration } from 'liknur-webpack';
 
 import path from 'path';
 
@@ -46,7 +47,32 @@ try {
   process.exit(1);
 }
 
+const parseResult =  await parseConfiguration(liknurConfigFile);
+if (!parseResult.success) {
+  if (!parseResult.errors) {
+    console.error(`Configuration file could not be parsed.`);
+    process.exit(1);
+  }
+  console.error(`Configuration file contains errors:`);
+  for (const error of parseResult.errors) {
+    console.error(`  - ${error}`);
+  }
+  process.exit(1);
+}
+const liknurConfig = parseResult.data;
+
 const serviceConfigFile = path.resolve(options.serviceConfig);
+const configSections = new Set<string>();
+
+for (let service of liknurConfig.parsed.services) {
+  if (!service['config-sections']) {
+    configSections.clear();
+    break;
+  } else
+    service['config-sections'].forEach((section: string) => {
+      configSections.add(section);
+    });
+}
 
 // check whether the service config file exists
 // if not, exit with error
@@ -64,13 +90,13 @@ if (certOption) {
   await setupCertificates(certOption);
 }
 
-// Copy the sections from the configuration file to the service configuration file or whole file if no sections are specified
 
+// Copy the sections from the configuration file to the service configuration file or whole file if no sections are specified
 await mkdir('dist', { recursive: true });
 const dstServiceConfigFile : PathLike = path.resolve('dist', 'service.config.yaml');
-if (options.sections) {
-  console.log(`Copying sections ${JSON.stringify(options.sections)} from ${serviceConfigFile} to ${dstServiceConfigFile}`);
-  await copyYamlSections(serviceConfigFile, dstServiceConfigFile, options.sections);
+if (configSections.size > 0) {
+  console.log(`Copying sections ${JSON.stringify(configSections)} from ${serviceConfigFile} to ${dstServiceConfigFile}`);
+  await copyYamlSections(serviceConfigFile, dstServiceConfigFile, Array.from(configSections));
 } else {
   console.log(`Copying whole file ${serviceConfigFile} to ${dstServiceConfigFile}`);
   await fs.copyFile(serviceConfigFile, dstServiceConfigFile);
