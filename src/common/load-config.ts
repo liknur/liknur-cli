@@ -61,9 +61,9 @@ function printConfiguration(config: LiknurConfig): void {
     console.log('  - Services:');
     for (const [_, serviceConfig] of Object.entries(config.parsed.services)) {
       console.log(`    - service name: ` + chalk.green(serviceConfig.name));
-      console.log(`      - Type: ${serviceConfig.serviceType}`);
+      console.log(`      - Type: ${serviceConfig['service-type']}`);
       console.log(`      - Subdomain: ${serviceConfig.subdomain}`);
-      console.log(`      - BuildType: ${JSON.stringify(serviceConfig.buildType)}`);
+      console.log(`      - BuildType: ${JSON.stringify(serviceConfig['build-type'])}`);
     }
   }
   console.log('');
