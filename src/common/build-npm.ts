@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
 export function runNpmInstall() {
-  const installProcess = spawn('npm', ['install'], { stdio: 'inherit', shell: true });
+  const installProcess = spawn('npm', ['install', '--omit-dev'], { stdio: 'inherit', shell: true });
 
   installProcess.on('close', (code) => {
     if (code === 0) {

@@ -5,12 +5,13 @@
 
 import { Command } from 'commander';
 import { promises as fs } from 'fs';
-import { mkdir, rm } from 'fs/promises';
+import { mkdir, rm, rename } from 'fs/promises';
 import { PathLike } from 'fs';
 import { setupCertificates } from './common/certificates.js';
 import { copyYamlSections } from './common/copy-config.js';
-import { runNpmInstall } from './common/build-npm.js';
+import { runNpmInstall, runNpmBuild } from './common/build-npm.js';
 import { parseConfiguration } from 'liknur-webpack';
+import { clearDirectoryExcept } from './common/clean.js';
 
 import path from 'path';
 
@@ -95,11 +96,12 @@ if (certOption) {
 
 
 await  rm('dist', { recursive: true, force: true });
+await  rm('node_modules', { recursive: true, force: true });
 // Copy the sections from the configuration file to the service configuration file or whole file if no sections are specified
 await mkdir('dist', { recursive: true });
-const dstServiceConfigFile : PathLike = path.resolve('dist', 'service.config.yaml');
+const dstServiceConfigFile : PathLike = path.resolve('service.config.yaml');
 if (configSections.size > 0) {
-  console.log(`Copying sections ${JSON.stringify(configSections)} from ${serviceConfigFile} to ${dstServiceConfigFile}`);
+  console.log(`Copying sections ${JSON.stringify(Array.from(configSections))} from ${serviceConfigFile} to ${dstServiceConfigFile}`);
   await copyYamlSections(serviceConfigFile, dstServiceConfigFile, Array.from(configSections));
 } else {
   console.log(`Copying whole file ${serviceConfigFile} to ${dstServiceConfigFile}`);
@@ -108,4 +110,6 @@ if (configSections.size > 0) {
 
 // Install dependencies
 runNpmInstall(); 
+runNpmBuild();
 
+await clearDirectoryExcept('.', ['dist', 'node_modules', 'package.json', 'package-lock.json']);
